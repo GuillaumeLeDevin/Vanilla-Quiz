@@ -6,6 +6,7 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
+    background: beige;
 }
 
 h1 {
@@ -29,7 +30,8 @@ h1 {
     padding: 15px 25px 25px;
     margin: 20px;
     border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5)
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    background: #f1f1f1;
 }
 
 .question-block h4 {
@@ -42,18 +44,18 @@ h1 {
     margin: 10px
 }
 
-.resultats {
+.results {
     padding: 25px;
     margin: 10px 0px 70px;
     border-radius: 5px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
-.resultats h2 {
+.results h2 {
     text-align: center;
 }
 
-.aide {
+.help {
     text-align: center;
     font-size: 20px;
     margin-top: 10px;
@@ -82,11 +84,11 @@ form button:hover {
     background-color: lightblue;
 }
 
-.echec {
-    animation: echec 0.3s ease-in-out;
+.fail {
+    animation: fail 0.3s ease-in-out;
 }
 
-@keyframes echec {
+@keyframes fail {
     0% {
         transform: translateX(0px);
     }

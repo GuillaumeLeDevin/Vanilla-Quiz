@@ -1,101 +1,110 @@
 const form = document.querySelector('.form-quizz');
-let tableauResultats = [];
-const reponses = ['c','a','b','a','c'];
+let tableResults = [];
+const answers = ['c','a','b','a','c'];
 const emojis = ['✔️','✨','👀','😭','👎'];
-const titreResultat = document.querySelector('.resultats h2');
-const noteResultat = document.querySelector('.note');
-const aideResultat = document.querySelector('.aide');
-const toutesLesQuestions = document.querySelectorAll('.question-block');
+const titleResult = document.querySelector('.results h2');
+const noteResult = document.querySelector('.note');
+const helpResult = document.querySelector('.help');
+const allQuestions = document.querySelectorAll('.question-block');
 let verifTableau = [];
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
+    // console.log(document.querySelector('input[name="q1"]:checked').value);
 
-    for(let i = 1; i < 6; i++) {
-        tableauResultats.push(document.querySelector(`input[name="q${i}"]:checked`).value)
+    for(i = 1; i < 6; i++) {
+        tableResults.push(document.querySelector(`input[name="q${i}"]:checked`).value)
     }
-    // console.log(tableauResultats);
-    verifFunc(tableauResultats);
-    tableauResultats = [];
+    // console.log(tableResults);
+    verifFunc(tableResults);
+    tableResults = [];
 })
 
-function verifFunc(tabResultats) {
+function verifFunc(tabResults) {
 
-    for(let a = 0; a < 5; a++) {
+    for(let a = 0; a < 5; a++){
 
-        if(tabResultats[a] === reponses[a]) {
+        if(tabResults[a] === answers[a]) {
             verifTableau.push(true);
         } else {
             verifTableau.push(false);
         }
+
     }
+
     // console.log(verifTableau);
-    afficherResultat(verifTableau);
-    couleursFonction(verifTableau);
+    displayResults(verifTableau);
+    colorsFunction(verifTableau);
     verifTableau = [];
 }
 
-function afficherResultat(tabCheck) {
+function displayResults(tabCheck) {
+
     const nbDeFautes = tabCheck.filter(el => el !== true).length;
-    
+    // console.log(nbDeFautes);
+
     switch(nbDeFautes) {
 
         case 0:
-            titreResultat.innerText = `✔️ Bravo, c'est un sans faute ! ✔️`
-            aideResultat.innerText = ''
-            noteResultat.innerText = '5/5'
+            titleResult.innerText = `✔️ Bravo, Perfect! ✔️`
+            helpResult.innerText = ''
+            noteResult.innerText = '5/5'
             break;
         case 1:
-            titreResultat.innerText = `✨ Vous y êtes presque ! ✨`
-            aideResultat.innerText = 'Retentez une autre réponse dans la case rouge, puis re-validez !'
-            noteResultat.innerText = '4/5'
+            titleResult.innerText = `✨ Almost! ✨`
+            helpResult.innerText = 'Try to correct the red answer!'
+            noteResult.innerText = '4/5'
             break;
         case 2:
-            titreResultat.innerText = `✨ Encore un effort ... 👀`
-            aideResultat.innerText = 'Retentez une autre réponse dans les cases rouges, puis re-validez !'
-            noteResultat.innerText = '3/5'
+            titleResult.innerText = `✨ Don't give up... 👀`
+            helpResult.innerText = 'Try to correct the red answer, then valid again!'
+            noteResult.innerText = '3/5'
             break;
         case 3:
-            titreResultat.innerText = `👀 Il reste quelques erreurs. 😭`
-            aideResultat.innerText = 'Retentez une autre réponse dans les cases rouges, puis re-validez !'
-            noteResultat.innerText = '2/5'
+            titleResult.innerText = `👀 Still few mistakes! 😭`
+            helpResult.innerText = 'Try to correct the red answer, then valid again!'
+            noteResult.innerText = '2/5'
             break;
         case 4:
-            titreResultat.innerText = `😭 Peux mieux faire ! 😭`
-            aideResultat.innerText = 'Retentez une autre réponse dans les cases rouges, puis re-validez !'
-            noteResultat.innerText = '1/5'
+            titleResult.innerText = `😭 You can do better! 😭`
+            helpResult.innerText = 'Try to correct the red answer, then valid again!'
+            noteResult.innerText = '1/5'
             break;
         case 5:
-            titreResultat.innerText = `👎 Peux mieux faire ! 👎`
-            aideResultat.innerText = 'Retentez une autre réponse dans les cases rouges, puis re-validez !'
-            noteResultat.innerText = '0/5'
+            titleResult.innerText = `👎 You can do better! 👎`
+            helpResult.innerText = 'Try to correct the red answer, then valid again!'
+            noteResult.innerText = '0/5'
         break;
 
         default:
             'Wops, cas innatendu.';
 
     }
+
 }
 
 
-function couleursFonction(tabValBool) {
-    for( let j = 0; j < tabValBool.length; j++) {
+function colorsFunction(tabValBool) {
 
-        if(tabValBool[j] === true) {
-            toutesLesQuestions[j].style.background = 'lightgreen';
+    for(let j = 0; j < tabValBool.length; j++){
+
+        if(tabValBool[j] === true){
+            allQuestions[j].style.background = 'lightgreen';
         } else {
-            toutesLesQuestions[j].style.background = '#ffb8b8';
-            toutesLesQuestions[j].classList.add('echec');
+            allQuestions[j].style.background = '#ffb8b8';
+            allQuestions[j].classList.add('fail');
 
             setTimeout(() => {
-                toutesLesQuestions[j].classList.remove('echec');
+                allQuestions[j].classList.remove('fail');
             }, 500)
         }
+        
     }
+
 }
 
-toutesLesQuestions.forEach( item => {
+allQuestions.forEach(item => {
     item.addEventListener('click', () => {
-        item.style.background = 'white';
+        item.style.background = "white";
     })
 })
